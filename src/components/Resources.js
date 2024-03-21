@@ -1,6 +1,16 @@
 import React, { useState, useEffect} from 'react';
 
-const Resources = ({stats}) => {
+const Resources = ({stats,setStats}) => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats(prevStats => ({
+        ...prevStats,
+        motivation: prevStats.motivation + 1
+      }));
+    }, 1000); 
+
+    return () => clearInterval(interval); 
+  }, [setStats]);
 return (
     <div className="resources">
       <h2>Resources:</h2>
