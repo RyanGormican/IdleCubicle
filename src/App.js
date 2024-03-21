@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Icon } from '@iconify/react';
 import Resources from './components/Resources';
-
+import Energize from './components/Energize';
+import Achievements from './components/Achievements';
 function App() {
   const initialStats = {
     inspiration: 0,
@@ -11,6 +12,8 @@ function App() {
     knowledge: 0,
     money: 0,
     social: 0,
+    motivationPoster: 0,
+    achievementMultiplier: 1.0,
   };
 
   const [stats, setStats] = useState(() => {
@@ -27,7 +30,20 @@ function App() {
   const handleViewChange = (view) => {
     setView(view);
   };
+    useEffect(() => {
+ 
 
+    
+    const interval = setInterval(() => {
+      setStats(prevStats => ({
+        ...prevStats,
+        motivation: ( prevStats.motivation + ( 1*(stats.motivationPoster) ) * stats.achievementMultiplier) 
+      }));
+
+    }, 1000); 
+
+    return () => clearInterval(interval); 
+  }, [stats]);
   return (
     <div className="App">
         <div className="Background">
@@ -38,6 +54,12 @@ function App() {
               onClick={() => handleViewChange('Resources')}
             >
               Resources
+            </button>
+             <button
+              className="btn btn-primary mr-2"
+              onClick={() => handleViewChange('Energize')}
+            >
+            Energize
             </button>
             <button
               className="btn btn-primary mr-2"
@@ -51,10 +73,22 @@ function App() {
             >
               Application
             </button>
+             <button
+              className="btn btn-primary"
+              onClick={() => handleViewChange('Achievements')}
+            >
+              Achievements
+            </button>
           </div>
           <div>
           {view === 'Resources' && (
             <Resources stats={stats} setStats={setStats} />
+          )}
+          {view === 'Energize' && (
+            <Energize stats={stats} setStats={setStats} />
+          )}
+           {view === 'Achievements' && (
+            <Achievements stats={stats} setStats={setStats} />
           )}
           </div>
           <div className="links">
