@@ -7,7 +7,7 @@ return (
       <div>
         {Object.entries(stats).map(([statName, statValue]) => (
           <p key={statName}>
-            {statName.charAt(0).toUpperCase() + statName.slice(1)}: {statValue}
+            {statName.charAt(0).toUpperCase() + statName.slice(1)}: {statValue?.toFixed(2)}
           </p>
         ))}
       </div>

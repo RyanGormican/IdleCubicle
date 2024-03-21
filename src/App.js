@@ -14,6 +14,7 @@ function App() {
     social: 0,
     motivationPoster: 0,
     achievementMultiplier: 1.0,
+    selfHelpBook: 0,
   };
 
   const [stats, setStats] = useState(() => {
