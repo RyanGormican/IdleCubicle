@@ -5,7 +5,9 @@ import Resources from './components/Resources';
 import Energize from './components/Energize';
 import Educate from './components/Educate';
 import Achievements from './components/Achievements';
-import { MotivationPerSecond } from './components/Calculations';
+import Skills from './components/Skills';
+import Application from './components/Application';
+import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
 
 function App() {
   const initialStats = {
@@ -22,6 +24,10 @@ function App() {
     draw:0,
     books:0,
     talking:0,
+    writing:0,
+    pencil:0,
+    motivationPoints:0,
+    writingPoints:0,
   };
 
   const [stats, setStats] = useState(() => {
@@ -45,11 +51,13 @@ function App() {
     const interval = setInterval(() => {
       setStats(prevStats => ({
         ...prevStats,
-        motivation: ( prevStats.motivation + ( 1*(stats.motivationPoster)+ 10*(stats.selfHelpBook) ) * stats.achievementMultiplier  -  (stats.explore + stats.draw+stats.books+stats.talking)) ,
-        inspiration:(prevStats.inspiration + (1*(stats.explore)) * stats.achievementMultiplier),
-        creativity:(prevStats.creativity + (1*(stats.draw)) * stats.achievementMultiplier),
-        knowledge:(prevStats.knowledge + (1*(stats.books)) * stats.achievementMultiplier),
-        social:(prevStats.social + (1*(stats.talking)) * stats.achievementMultiplier),
+        motivation: (prevStats.motivation+ MotivationPerSecond(stats)) ,
+        inspiration:(prevStats.inspiration + InspirationPerSecond(stats)) ,
+        creativity:(prevStats.creativity + CreativityPerSecond(stats)),
+        knowledge:(prevStats.knowledge + KnowledgePerSecond(stats)),
+        social:(prevStats.social + SocialPerSecond(stats)),
+        writing:(prevStats.writing +  WritingPerSecond(stats)),
+        money:(prevStats.money+ MoneyPerSecond(stats))
       }));
 
     }, 1000); 
@@ -110,6 +118,12 @@ function App() {
           )}
            {view === 'Achievements' && (
             <Achievements stats={stats} setStats={setStats} />
+          )}
+             {view === 'Skills' && (
+            <Skills stats={stats} setStats={setStats} />
+          )}
+           {view === 'Application' && (
+            <Application stats={stats} setStats={setStats} />
           )}
           </div>
           <div className="links">
