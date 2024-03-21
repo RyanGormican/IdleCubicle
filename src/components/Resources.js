@@ -13,7 +13,6 @@ const Resources = ({stats,setStats}) => {
   }, [setStats]);
 return (
     <div className="resources">
-      <h2>Resources:</h2>
       <div>
         {Object.entries(stats).map(([statName, statValue]) => (
           <p key={statName}>
