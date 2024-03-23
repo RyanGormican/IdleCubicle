@@ -131,6 +131,9 @@ function App() {
     <button className={purchaseQuantity === 25 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(25)}>25x</button>
       <button className={purchaseQuantity === 50 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(50)}>50x</button>
         <button className={purchaseQuantity === 100 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(100)}>100x</button>
+                <button className={purchaseQuantity === 250 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(250)}>250x</button>
+                        <button className={purchaseQuantity === 500 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(500)}>500x</button>
+                                <button className={purchaseQuantity === 1000 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1000)}>1000x</button>
   <button className={purchaseQuantity === 'MAX' ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange('MAX')}>MAX</button>
       </div>
           <div>
