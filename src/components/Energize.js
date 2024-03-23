@@ -197,8 +197,10 @@ const purchaseAvailableUpgrades = () => {
 
   return (
     <div className="resources">
-      <p>Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)<button onClick={hypeUp}>Hype up</button></p>
-     
+      <p>Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)</p>
+     <div>
+     <button onClick={hypeUp}>Hype up</button>
+     </div>
       <button onClick={() => setView('Items')}>Items</button> <button onClick={() => setView('Upgrades')}>Upgrades {purchasedUpgradesCount} / {totalUpgradesCount}</button>
       {view === 'Items' && (
         <div>

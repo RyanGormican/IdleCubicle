@@ -31,7 +31,7 @@ const Settings = ({ stats, setStats }) => {
 
 return (
     <div className="resources">
-      <button onClick={handleResetStats}>Reset Stats</button>
+      <button onClick={handleResetStats}>Reset All</button>
       <div>
         {stats &&
           settings.map((setting, index) => (
