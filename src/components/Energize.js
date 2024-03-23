@@ -4,10 +4,10 @@ import { MotivationPerSecond } from './Calculations';
 
 const Energize = ({ stats, setStats }) => {
   const [view, setView] = useState('Items');
-
+   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
   const buyUpgrade = (upgrade) => {
     const currentPrice = upgrade.price;
-    if (stats.motivation >= currentPrice && !upgrade.purchased) {
+    if (stats.motivation >= currentPrice && !upgrade.purchased && purchaseQuantity) {
       setStats(prevStats => ({
         ...prevStats,
         motivation: prevStats.motivation - currentPrice,
@@ -23,13 +23,75 @@ const Energize = ({ stats, setStats }) => {
     }
   };
 
+
+  const calculateMax = (itemType) => {
+  let basePrice, increaseRate;
+  switch (itemType) {
+    case 'foamfinger':
+      basePrice = 50;
+      increaseRate = 1.01;
+      break;
+    case 'motivationPoster':
+      basePrice = 30;
+      increaseRate = 1.07;
+      break;
+    case 'selfHelpBook':
+      basePrice = 500;
+      increaseRate = 1.06;
+      break;
+    case 'meditationGuide':
+      basePrice = 1000;
+      increaseRate = 1.05;
+      break;
+    case 'yogaMat':
+      basePrice = 1500;
+      increaseRate = 1.05;
+      break;
+    case 'energyDrink':
+      basePrice = 2000;
+      increaseRate = 1.05;
+      break;
+    case 'influencerCourse':
+      basePrice = 2500;
+      increaseRate = 1.05;
+      break;
+    default:
+      basePrice = 0;
+      increaseRate = 1;
+  }
+
+  let totalPrice = 0;
+  let remainingMotivation = stats.motivation;
+  let itemQuantity = stats[itemType];
+  while (remainingMotivation >= basePrice) {
+    const price = basePrice * Math.pow(increaseRate, itemQuantity);
+    if (price <= remainingMotivation) {
+      totalPrice += Math.round(price);
+      remainingMotivation -= price;
+      itemQuantity++;
+    } else {
+      break;
+    }
+  }
+  return itemQuantity - stats[itemType];
+};
+
+   const handlePurchaseQuantityChange = (quantity) => {
+    setPurchaseQuantity(quantity);
+  };
   const buyItem = (itemType) => {
     const currentPrice = calculatePrice(itemType);
-    if (stats.motivation >= currentPrice) {
+    if (stats.motivation >= currentPrice  && purchaseQuantity !== 'MAX') {
       setStats(prevStats => ({
         ...prevStats,
         motivation: prevStats.motivation - currentPrice,
-        [itemType]: prevStats[itemType] + 1,
+        [itemType]: prevStats[itemType] + purchaseQuantity,
+      }));
+    }else if (stats.motivation >= currentPrice && purchaseQuantity === 'MAX') {
+      setStats(prevStats => ({
+        ...prevStats,
+        motivation: prevStats.motivation - currentPrice,
+        [itemType]: prevStats[itemType] + calculateMax(itemType),
       }));
     } else {
       alert("Not enough motivation to buy!");
@@ -47,50 +109,67 @@ const Energize = ({ stats, setStats }) => {
     }));
   };
 
-  const calculatePrice = (itemType) => {
-    let basePrice, increaseRate;
-    switch (itemType) {
-      case 'foamfinger':
-        basePrice = 50;
-        increaseRate = 1.01;
-        break;
-      case 'motivationPoster':
-        basePrice = 30;
-        increaseRate = 1.07;
-        break;
-      case 'selfHelpBook':
-        basePrice = 500;
-        increaseRate = 1.06;
-        break;
-      case 'meditationGuide':
-        basePrice = 1000;
-        increaseRate = 1.05;
-        break;
-      case 'yogaMat':
-        basePrice = 1500;
-        increaseRate = 1.05;
-        break;
-      case 'energyDrink':
-        basePrice = 2000;
-        increaseRate = 1.05;
-        break;
-      case 'influencerCourse':
-        basePrice = 2500;
-        increaseRate = 1.05;
-        break;
-      default:
-        basePrice = 0;
-        increaseRate = 1;
-    }
+ const calculatePrice = (itemType) => {
+  let basePrice, increaseRate;
+  switch (itemType) {
+    case 'foamfinger':
+      basePrice = 50;
+      increaseRate = 1.01;
+      break;
+    case 'motivationPoster':
+      basePrice = 30;
+      increaseRate = 1.07;
+      break;
+    case 'selfHelpBook':
+      basePrice = 500;
+      increaseRate = 1.06;
+      break;
+    case 'meditationGuide':
+      basePrice = 1000;
+      increaseRate = 1.05;
+      break;
+    case 'yogaMat':
+      basePrice = 1500;
+      increaseRate = 1.05;
+      break;
+    case 'energyDrink':
+      basePrice = 2000;
+      increaseRate = 1.05;
+      break;
+    case 'influencerCourse':
+      basePrice = 2500;
+      increaseRate = 1.05;
+      break;
+    default:
+      basePrice = 0;
+      increaseRate = 1;
+  }
 
-    const itemQuantity = stats[itemType];
-    if (itemQuantity > 0) {
+  if (purchaseQuantity === 'MAX') {
+    let totalPrice = 0;
+    let remainingMotivation = stats.motivation;
+    let itemQuantity = stats[itemType];
+    while (remainingMotivation >= basePrice) {
       const price = basePrice * Math.pow(increaseRate, itemQuantity);
-      return Math.round(price);
-    } else {
-      return basePrice;
+      if (price <= remainingMotivation) {
+        totalPrice += Math.round(price);
+        remainingMotivation -= price;
+        itemQuantity++;
+      } else {
+        break;
+      }
     }
-  };
+    return totalPrice;
+  } else {
+    let totalPrice = 0;
+    for (let i = 0; i < purchaseQuantity; i++) {
+      const itemQuantity = stats[itemType] + i;
+      const price = basePrice * Math.pow(increaseRate, itemQuantity);
+      totalPrice += Math.round(price);
+    }
+    return totalPrice;
+    }
+};
 
   const purchasedUpgradesCount = stats.upgrades.filter(upgrade => upgrade.purchased).length;
   const totalUpgradesCount = stats.upgrades.length;
@@ -98,6 +177,12 @@ const Energize = ({ stats, setStats }) => {
   return (
     <div className="resources">
       <p>Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)<button onClick={hypeUp}>Hype up</button></p>
+       <div className="purchase-quantity-buttons">
+  <button className={purchaseQuantity === 1 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1)}>1x</button>
+  <button className={purchaseQuantity === 5 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(5)}>5x</button>
+  <button className={purchaseQuantity === 10 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(10)}>10x</button>
+  <button className={purchaseQuantity === 'MAX' ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange('MAX')}>MAX</button>
+      </div>
       <button onClick={() => setView('Items')}>Items</button> <button onClick={() => setView('Upgrades')}>Upgrades {purchasedUpgradesCount} / {totalUpgradesCount}</button>
       {view === 'Items' && (
         <div>
@@ -157,6 +242,7 @@ const Energize = ({ stats, setStats }) => {
     
           {stats?.upgrades
             .filter(upgrade => upgrade.type === 'motivation')
+            .sort((a, b) => a.price - b.price)
             .map((upgrade, index) => (
               <div key={index} className="upgrade-container">
                 <p className="upgrade-info">
@@ -176,4 +262,3 @@ const Energize = ({ stats, setStats }) => {
 };
 
 export default Energize;
-
