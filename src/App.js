@@ -7,6 +7,8 @@ import Educate from './components/Educate';
 import Achievements from './components/Achievements';
 import Skills from './components/Skills';
 import Application from './components/Application';
+import Settings from './components/Settings';
+import { upgrades } from './components/Upgrades'; 
 import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
 
 function App() {
@@ -28,6 +30,12 @@ function App() {
     pencil:0,
     motivationPoints:0,
     writingPoints:0,
+    meditationGuide:0,
+    yogaMat:0,
+    energyDrink:0,
+    influencerCourse:0,
+    foamfinger:0,
+    ...upgrades,
   };
 
   const [stats, setStats] = useState(() => {
@@ -105,6 +113,12 @@ function App() {
             >
               Achievements
             </button>
+                   <button
+              className="btn btn-primary"
+              onClick={() => handleViewChange('Settings')}
+            >
+              Settings
+            </button>
           </div>
           <div>
           {view === 'Resources' && (
@@ -124,6 +138,9 @@ function App() {
           )}
            {view === 'Application' && (
             <Application stats={stats} setStats={setStats} />
+          )}
+          {view === 'Settings' && (
+            <Settings stats={stats} setStats={setStats} />
           )}
           </div>
           <div className="links">

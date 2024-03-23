@@ -1,5 +1,5 @@
 export const MotivationPerSecond = (stats) => {
-  const motivationPerSecond = ((1 * stats.motivationPoster + 10 * stats.selfHelpBook) * stats.achievementMultiplier - (stats.explore + stats.draw + stats.books + stats.talking) - 10 * stats.pencil - 100 * stats.motivationPoints);
+  const motivationPerSecond = ((1 * stats.motivationPoster + 10 * stats.selfHelpBook  + 20 * stats.meditationGuide + 25 * stats.yogaMat + 30 * stats.energyDrink + 50 * stats.influencerCourse) * stats.achievementMultiplier - (stats.explore + stats.draw + stats.books + stats.talking) - 10 * stats.pencil - 100 * stats.motivationPoints);
   return motivationPerSecond;
 };
 export const InspirationPerSecond = (stats) => {
