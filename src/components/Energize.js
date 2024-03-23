@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import {Tooltip} from 'react-tooltip';
 import { MotivationPerSecond } from './Calculations';
 
-const Energize = ({ stats, setStats }) => {
+const Energize = ({ stats, setStats, purchaseQuantity }) => {
   const [view, setView] = useState('Items');
-   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
   const buyUpgrade = (upgrade) => {
     const currentPrice = upgrade.price;
     if (stats.motivation >= currentPrice && !upgrade.purchased && purchaseQuantity) {
@@ -23,7 +22,31 @@ const Energize = ({ stats, setStats }) => {
     }
   };
 
+const purchaseAvailableUpgrades = () => {
+  const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased);
+  availableUpgrades.sort((a, b) => a.price - b.price);
 
+  let remainingMotivation = stats.motivation;
+
+  for (const upgrade of availableUpgrades) {
+    const currentPrice = upgrade.price;
+    if (remainingMotivation >= currentPrice) {
+      remainingMotivation -= currentPrice;
+      setStats(prevStats => ({
+        ...prevStats,
+        motivation: remainingMotivation,
+        upgrades: prevStats.upgrades.map(item => {
+          if (item.name === upgrade.name) {
+            return { ...item, purchased: true };
+          }
+          return item;
+        })
+      }));
+    } else {
+      break;
+    }
+  }
+};
   const calculateMax = (itemType) => {
   let basePrice, increaseRate;
   switch (itemType) {
@@ -76,9 +99,7 @@ const Energize = ({ stats, setStats }) => {
   return itemQuantity - stats[itemType];
 };
 
-   const handlePurchaseQuantityChange = (quantity) => {
-    setPurchaseQuantity(quantity);
-  };
+ 
   const buyItem = (itemType) => {
     const currentPrice = calculatePrice(itemType);
     if (stats.motivation >= currentPrice  && purchaseQuantity !== 'MAX') {
@@ -177,12 +198,7 @@ const Energize = ({ stats, setStats }) => {
   return (
     <div className="resources">
       <p>Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)<button onClick={hypeUp}>Hype up</button></p>
-       <div className="purchase-quantity-buttons">
-  <button className={purchaseQuantity === 1 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1)}>1x</button>
-  <button className={purchaseQuantity === 5 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(5)}>5x</button>
-  <button className={purchaseQuantity === 10 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(10)}>10x</button>
-  <button className={purchaseQuantity === 'MAX' ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange('MAX')}>MAX</button>
-      </div>
+     
       <button onClick={() => setView('Items')}>Items</button> <button onClick={() => setView('Upgrades')}>Upgrades {purchasedUpgradesCount} / {totalUpgradesCount}</button>
       {view === 'Items' && (
         <div>
@@ -238,24 +254,28 @@ const Energize = ({ stats, setStats }) => {
         </div>
       )}
       {view === 'Upgrades' && (
-        <div>
-    
-          {stats?.upgrades
-            .filter(upgrade => upgrade.type === 'motivation')
-            .sort((a, b) => a.price - b.price)
-            .map((upgrade, index) => (
-              <div key={index} className="upgrade-container">
-                <p className="upgrade-info">
-                  {upgrade.name}: {upgrade.price}
-                  <button disabled={upgrade.purchased} onClick={() => buyUpgrade(upgrade)}>
-                    {upgrade.purchased ? "Purchased" : "Purchase"}
-                  </button>
-                  <span className="tooltip-text">{upgrade.description}</span>
-                </p>
-              </div>
-            ))}
+  <div>
+  <div>
+   <button onClick={() => purchaseAvailableUpgrades()}> Purchase Available Upgrades</button>
+  </div>
+    {stats?.upgrades
+      .filter(upgrade => upgrade.type === 'motivation')
+      .filter(upgrade => !stats.settings.find(setting => setting.name === "Hide Purchased Upgrades").status || !upgrade.purchased)
+      .sort((a, b) => a.price - b.price)
+      .map((upgrade, index) => (
+        <div key={index} className="upgrade-container">
+          <p className="upgrade-info">
+            {upgrade.name}: {upgrade.price}
+            <button disabled={upgrade.purchased} onClick={() => buyUpgrade(upgrade)}>
+              {upgrade.purchased ? "Purchased" : "Purchase"}
+            </button>
+            <span className="tooltip-text">{upgrade.description}</span>
+          </p>
         </div>
-      )}
+      ))}
+  </div>
+)}
+
 
     </div>
   );

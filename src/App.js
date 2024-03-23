@@ -7,6 +7,7 @@ import Educate from './components/Educate';
 import Achievements from './components/Achievements';
 import Skills from './components/Skills';
 import Application from './components/Application';
+import {settings} from './components/Settings';
 import Settings from './components/Settings';
 import { upgrades } from './components/Upgrades'; 
 import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
@@ -36,13 +37,16 @@ function App() {
     influencerCourse:0,
     foamfinger:0,
     ...upgrades,
+    ...settings,
   };
-
+   const handlePurchaseQuantityChange = (quantity) => {
+    setPurchaseQuantity(quantity);
+  };
   const [stats, setStats] = useState(() => {
     const savedStats = localStorage.getItem('idlecubicle');
     return savedStats ? JSON.parse(savedStats) : initialStats;
   });
-
+     const [purchaseQuantity, setPurchaseQuantity] = useState(1);
   useEffect(() => {
     localStorage.setItem('idlecubicle', JSON.stringify(stats));
   }, [stats]);
@@ -120,12 +124,21 @@ function App() {
               Settings
             </button>
           </div>
+            <div className="purchase-quantity-buttons">
+  <button className={purchaseQuantity === 1 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1)}>1x</button>
+  <button className={purchaseQuantity === 5 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(5)}>5x</button>
+  <button className={purchaseQuantity === 10 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(10)}>10x</button>
+    <button className={purchaseQuantity === 25 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(25)}>25x</button>
+      <button className={purchaseQuantity === 50 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(50)}>50x</button>
+        <button className={purchaseQuantity === 100 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(100)}>100x</button>
+  <button className={purchaseQuantity === 'MAX' ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange('MAX')}>MAX</button>
+      </div>
           <div>
           {view === 'Resources' && (
             <Resources stats={stats} setStats={setStats} />
           )}
           {view === 'Energize' && (
-            <Energize stats={stats} setStats={setStats} />
+            <Energize stats={stats} setStats={setStats} purchaseQuantity = {purchaseQuantity} />
           )}
           {view === 'Educate' && (
             <Educate stats={stats} setStats={setStats} />
