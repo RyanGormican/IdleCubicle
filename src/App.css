@@ -43,3 +43,28 @@ top:20px;
 text-align:center;
 
 }
+.upgrade-container {
+  position: relative;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.upgrade-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
