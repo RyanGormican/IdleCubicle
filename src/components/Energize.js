@@ -67,6 +67,16 @@ const purchaseAvailableUpgrades = () => {
     }
   }
 };
+const calculateHypePrestige = () => {
+  let hypeUp = 1;
+  stats.upgrades
+    .filter(upgrade => upgrade.type === 'prestige' && upgrade.area === 'click' && upgrade.purchased)
+    .forEach(upgrade => {
+      hypeUp *= upgrade.effect;
+    });
+  return hypeUp;
+};
+
   const calculateMax = (itemType) => {
   let basePrice, increaseRate;
   switch (itemType) {
@@ -146,7 +156,7 @@ const purchaseAvailableUpgrades = () => {
   const hypeUp = () => {
     setStats(prevStats => ({
       ...prevStats,
-      motivation: prevStats.motivation + ((1 + (1+totalFoamFingerEffect) * stats.foamfinger ) * stats.achievementMultiplier),
+      motivation: prevStats.motivation + ((1 + (1+totalFoamFingerEffect) * stats.foamfinger ) * calculateHypePrestige() * stats.achievementMultiplier),
     }));
   };
 
@@ -226,7 +236,7 @@ const purchaseAvailableUpgrades = () => {
        <div>
   <div>
     <p>
-             <Icon icon={getIcon('foamfinger')} width="30" />   Foam Finger (+{(stats.foamfinger * (1 + totalFoamFingerEffect) * stats.achievementMultiplier).toFixed(2)} /click):
+             <Icon icon={getIcon('foamfinger')} width="30" />   Foam Finger (+{(stats.foamfinger * (1 + totalFoamFingerEffect) * calculateHypePrestige() *  stats.achievementMultiplier).toFixed(2)} /click):
       {stats.foamfinger} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('foamfinger')} (${calculateMax('foamfinger')})` : calculatePrice('foamfinger')}
       <button onClick={() => buyItem('foamfinger')}>Buy Foam Finger</button>
     </p>

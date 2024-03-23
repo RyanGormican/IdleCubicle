@@ -9,6 +9,7 @@ import Skills from './components/Skills';
 import Application from './components/Application';
 import {settings} from './components/Settings';
 import Settings from './components/Settings';
+import Prestige from './components/Prestige';
 import { upgrades } from './components/Upgrades'; 
 import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
 
@@ -36,6 +37,7 @@ function App() {
     energyDrink:0,
     influencerCourse:0,
     foamfinger:0,
+    goldstars:0,
     ...upgrades,
     ...settings,
   };
@@ -76,6 +78,24 @@ function App() {
 
     return () => clearInterval(interval); 
   }, [stats]);
+  useEffect(() => {
+  if (stats) {
+    const savedStats = JSON.parse(localStorage.getItem('idlecubicle'));
+    if (initialStats && initialStats.upgrades && savedStats && savedStats.upgrades) {
+      const updatedUpgrades = initialStats.upgrades.map(upgrade => {
+        const savedUpgrade = savedStats.upgrades.find(savedUpgrade => savedUpgrade.name === upgrade.name);
+        return savedUpgrade ? savedUpgrade : upgrade;
+      });
+      setStats(prevStats => ({
+        ...prevStats,
+        upgrades: updatedUpgrades
+      }));
+    } else {
+
+    }
+  }
+}, [stats]);
+
   return (
     <div className="App">
         <div className="Background">
@@ -123,6 +143,12 @@ function App() {
       >
         Settings
       </button>
+            <button
+        className={`btn btn-primary ${view === 'Prestige' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Prestige')}
+      >
+        Prestige
+      </button>
           </div>
             <div className="purchase-quantity-buttons">
   <button className={purchaseQuantity === 1 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1)}>1x</button>
@@ -157,6 +183,9 @@ function App() {
           )}
           {view === 'Settings' && (
             <Settings stats={stats} setStats={setStats} />
+          )}
+          {view === 'Prestige' && (
+            <Prestige stats={stats} setStats={setStats} />
           )}
           </div>
           <div className="links">
