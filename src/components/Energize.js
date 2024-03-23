@@ -43,7 +43,7 @@ const Energize = ({ stats, setStats, purchaseQuantity }) => {
 };
 
 const purchaseAvailableUpgrades = () => {
-  const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased);
+  const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased && upgrade.type === 'motivation');
   availableUpgrades.sort((a, b) => a.price - b.price);
 
   let remainingMotivation = stats.motivation;
@@ -222,8 +222,8 @@ const calculateHypePrestige = () => {
     }
 };
 
-  const purchasedUpgradesCount = stats.upgrades.filter(upgrade => upgrade.purchased).length;
-  const totalUpgradesCount = stats.upgrades.length;
+  const purchasedUpgradesCount = stats.upgrades.filter(upgrade => upgrade.purchased && upgrade.type === 'motivation').length;
+  const totalUpgradesCount = stats.upgrades.filter(upgrade => upgrade.type === 'motivation').length;
 
   return (
     <div className="resources">

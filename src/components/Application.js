@@ -1,11 +1,11 @@
 import React from 'react';
 import { MotivationPerSecond, InspirationPerSecond, CreativityPerSecond, KnowledgePerSecond, SocialPerSecond,WritingPerSecond } from './Calculations';
 
-const Application = ({ stats, setStats }) => {
+const Application = ({ stats, setStats, purchaseQuantity }) => {
   const increaseQuantity = (item) => {
     setStats(prevStats => ({
       ...prevStats,
-      [item]:  prevStats[item] + 1
+      [item]:  prevStats[item] + purchaseQuantity
     }));
   };
 

@@ -176,10 +176,10 @@ function App() {
             <Achievements stats={stats} setStats={setStats} />
           )}
              {view === 'Skills' && (
-            <Skills stats={stats} setStats={setStats} />
+            <Skills stats={stats} setStats={setStats} purchaseQuantity={purchaseQuantity}/>
           )}
            {view === 'Application' && (
-            <Application stats={stats} setStats={setStats} />
+            <Application stats={stats} setStats={setStats} purchaseQuantity={purchaseQuantity}/>
           )}
           {view === 'Settings' && (
             <Settings stats={stats} setStats={setStats} />

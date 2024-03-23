@@ -3,32 +3,28 @@ import { Icon } from '@iconify/react';
 
 const Prestige = ({ stats, setStats }) => {
   const availableStars = Math.floor(stats.money / 10000);
-    const prestige = () => {
+  const prestige = () => {
     const resetStats = {
-      ...stats,
-      inspiration: 0,
-      creative: 0,
-      motivation: 0,
-      knowledge: 0,
-      money: 0,
-      social: 0,
-      achievementMultiplier: 1, 
+      goldstars: stats.goldstars + availableStars,
+      upgrades: stats.upgrades.map(upgrade => ({
+        ...upgrade,
+        purchased: upgrade.type === 'prestige' ? upgrade.purchased : false,
+      })),
+      achievementMultiplier: 1,
+      settings: stats.settings,
     };
 
-    resetStats.upgrades = resetStats.upgrades.map(upgrade => {
-      if (upgrade.type !== 'prestige') {
-        return { ...upgrade, purchased: false };
+    for (const key in stats) {
+      if (!['goldstars', 'upgrades', 'achievementMultiplier','settings'].includes(key)) {
+        resetStats[key] = 0;
       }
-      return upgrade;
-    });
-
-    resetStats.goldstars += availableStars;
-
+    }
 
     setStats(resetStats);
   };
+
 const purchaseAvailableUpgrades = () => {
-  const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased);
+  const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased && upgrade.type === 'prestige');
   availableUpgrades.sort((a, b) => a.price - b.price);
 
   let remainingStars = stats.goldstars;
