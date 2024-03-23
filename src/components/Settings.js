@@ -28,9 +28,20 @@ const Settings = ({ stats, setStats }) => {
       })
     }));
   };
-
+ const handleResetResources = () => {
+    setStats(prevStats => ({
+      ...prevStats,
+      inspiration: 0,
+      creative: 0,
+      motivation: 0,
+      knowledge: 0,
+      money: 0,
+      social: 0,
+    }));
+  };
 return (
     <div className="resources">
+     <button onClick={handleResetResources}>Reset Resources</button>
       <button onClick={handleResetStats}>Reset All</button>
       <div>
         {stats &&

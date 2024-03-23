@@ -81,48 +81,48 @@ function App() {
         <div className="Background">
           <div className="title">IdleCubicle</div>
           <div className="buttons">
-            <button
-              className="btn btn-primary btn-large mr-2"
-              onClick={() => handleViewChange('Resources')}
-            >
-              Resources
-            </button>
-             <button
-              className="btn btn-primary mr-2"
-              onClick={() => handleViewChange('Energize')}
-            >
-            Energize
-            </button>
-            <button
-              className="btn btn-primary mr-2"
-              onClick={() => handleViewChange('Educate')}
-            >
-              Educate
-            </button>
-            <button
-              className="btn btn-primary mr-2"
-              onClick={() => handleViewChange('Skills')}
-            >
-              Skills
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => handleViewChange('Application')}
-            >
-              Application
-            </button>
-             <button
-              className="btn btn-primary"
-              onClick={() => handleViewChange('Achievements')}
-            >
-              Achievements
-            </button>
-                   <button
-              className="btn btn-primary"
-              onClick={() => handleViewChange('Settings')}
-            >
-              Settings
-            </button>
+      <button
+        className={`btn btn-primary btn-large mr-2 ${view === 'Resources' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Resources')}
+      >
+        Resources
+      </button>
+      <button
+        className={`btn btn-primary mr-2 ${view === 'Energize' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Energize')}
+      >
+        Energize
+      </button>
+      <button
+        className={`btn btn-primary mr-2 ${view === 'Educate' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Educate')}
+      >
+        Educate
+      </button>
+      <button
+        className={`btn btn-primary mr-2 ${view === 'Skills' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Skills')}
+      >
+        Skills
+      </button>
+      <button
+        className={`btn btn-primary mr-2 ${view === 'Application' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Application')}
+      >
+        Application
+      </button>
+      <button
+        className={`btn btn-primary mr-2 ${view === 'Achievements' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Achievements')}
+      >
+        Achievements
+      </button>
+      <button
+        className={`btn btn-primary ${view === 'Settings' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Settings')}
+      >
+        Settings
+      </button>
           </div>
             <div className="purchase-quantity-buttons">
   <button className={purchaseQuantity === 1 ? 'selected' : ''} onClick={() => handlePurchaseQuantityChange(1)}>1x</button>
@@ -144,7 +144,7 @@ function App() {
             <Energize stats={stats} setStats={setStats} purchaseQuantity = {purchaseQuantity} />
           )}
           {view === 'Educate' && (
-            <Educate stats={stats} setStats={setStats} />
+            <Educate stats={stats} setStats={setStats} purchaseQuantity={purchaseQuantity}/>
           )}
            {view === 'Achievements' && (
             <Achievements stats={stats} setStats={setStats} />

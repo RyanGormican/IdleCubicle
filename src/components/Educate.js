@@ -1,19 +1,24 @@
 import React from 'react';
 import { MotivationPerSecond, InspirationPerSecond, CreativityPerSecond, KnowledgePerSecond, SocialPerSecond } from './Calculations';
 
-const Educate = ({ stats, setStats }) => {
+const Educate = ({ stats, setStats , purchaseQuantity}) => {
   const increaseQuantity = (item) => {
     setStats(prevStats => ({
       ...prevStats,
-      [item]: prevStats[item] + 1
+      [item]: prevStats[item] + purchaseQuantity
     }));
   };
 
   const decreaseQuantity = (item) => {
-    if (stats[item] > 0) {
+    if (stats[item] > 0 && stats[item] - purchaseQuantity >= 0 && purchaseQuantity!== 'MAX') {
       setStats(prevStats => ({
         ...prevStats,
-        [item]: prevStats[item] - 1
+        [item]: prevStats[item] - purchaseQuantity
+      }));
+    }else {
+     setStats(prevStats => ({
+        ...prevStats,
+        [item]: 0
       }));
     }
   };

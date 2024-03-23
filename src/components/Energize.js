@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Tooltip} from 'react-tooltip';
 import { MotivationPerSecond } from './Calculations';
-
+import { Icon } from '@iconify/react';
 const Energize = ({ stats, setStats, purchaseQuantity }) => {
   const [view, setView] = useState('Items');
   const buyUpgrade = (upgrade) => {
@@ -21,6 +21,26 @@ const Energize = ({ stats, setStats, purchaseQuantity }) => {
       alert("Not enough motivation!");
     }
   };
+  const getIcon = (area) => {
+  switch (area) {
+    case 'foamfinger':
+      return 'tabler:hand-finger';
+    case 'motivationPoster':
+      return 'akar-icons:paper';
+    case 'selfHelpBook':
+      return 'material-symbols:book';
+    case 'meditationGuide':
+      return 'mdi:tape';
+    case 'yogaMat':
+      return 'tabler:yoga';
+    case 'energyDrink':
+      return 'game-icons:soda-can';
+    case 'influencerCourse':
+      return 'material-symbols:person';
+    default:
+      return null;
+  }
+};
 
 const purchaseAvailableUpgrades = () => {
   const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased);
@@ -203,78 +223,80 @@ const purchaseAvailableUpgrades = () => {
      </div>
       <button onClick={() => setView('Items')}>Items</button> <button onClick={() => setView('Upgrades')}>Upgrades {purchasedUpgradesCount} / {totalUpgradesCount}</button>
       {view === 'Items' && (
+       <div>
+  <div>
+    <p>
+             <Icon icon={getIcon('foamfinger')} width="30" />   Foam Finger (+{(stats.foamfinger * (1 + totalFoamFingerEffect) * stats.achievementMultiplier).toFixed(2)} /click):
+      {stats.foamfinger} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('foamfinger')} (${calculateMax('foamfinger')})` : calculatePrice('foamfinger')}
+      <button onClick={() => buyItem('foamfinger')}>Buy Foam Finger</button>
+    </p>
+  </div>
+  <div>
+    <p>
+            <Icon icon={getIcon('motivationPoster')} width="30" />   Motivation Poster (+{(stats.motivationPoster * 1 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.motivationPoster} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('motivationPoster')} (${calculateMax('motivationPoster')})` : calculatePrice('motivationPoster')}
+      <button onClick={() => buyItem('motivationPoster')}>Buy Motivation Poster</button>
+    </p>
+  </div>
+  <div>
+    <p>
+            <Icon icon={getIcon('selfHelpBook')} width="30" />    Self Help Book (+{(stats.selfHelpBook * 10 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.selfHelpBook} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('selfHelpBook')} (${calculateMax('selfHelpBook')})` : calculatePrice('selfHelpBook')}
+      <button onClick={() => buyItem('selfHelpBook')}>Buy Self Help Book</button>
+    </p>
+  </div>
+  <div>
+    <p>
+        <Icon icon={getIcon('meditationGuide')} width="30" />    Meditation Guide (+{(stats.meditationGuide * 20 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.meditationGuide} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('meditationGuide')} (${calculateMax('meditationGuide')})` : calculatePrice('meditationGuide')}
+      <button onClick={() => buyItem('meditationGuide')}>Buy Meditation Guide</button>
+    </p>
+  </div>
+  <div>
+    <p>
+       <Icon icon={getIcon('yogaMat')} width="30" />  Yoga Mat (+{(stats.yogaMat * 25 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.yogaMat} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('yogaMat')}(${calculateMax('yogaMat')})` : calculatePrice('yogaMat')}
+      <button onClick={() => buyItem('yogaMat')}>Buy Yoga Mat</button>
+    </p>
+  </div>
+  <div>
+    <p>
+             <Icon icon={getIcon('energyDrink')} width="30" />   Energy Drink (+{(stats.energyDrink * 30 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.energyDrink} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('energyDrink')}(${calculateMax('energyDrink')})` : calculatePrice('energyDrink')}
+      <button onClick={() => buyItem('energyDrink')}>Buy Energy Drink</button>
+    </p>
+  </div>
+  <div>
+    <p>
+            <Icon icon={getIcon('influencerCourse')} width="30" />   Influencer Course (+{(stats.influencerCourse * 50 * stats.achievementMultiplier).toFixed(2)}/sec):
+      {stats.influencerCourse} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('influencerCourse')} (${calculateMax('influencerCourse')})` : calculatePrice('influencerCourse')}
+      <button onClick={() => buyItem('influencerCourse')}>Buy Influencer Course</button>
+    </p>
+  </div>
+</div>
+
+      )}
+        {view === 'Upgrades' && (
         <div>
           <div>
-            <p>
-              Foam Finger (+{(stats.foamfinger *( 1 + totalFoamFingerEffect)* stats.achievementMultiplier).toFixed(2)} /click):
-              {stats.foamfinger} --- {calculatePrice('foamfinger')}
-              <button onClick={() => buyItem('foamfinger')}>Buy Foam Finger</button>
-            </p>
+            <button onClick={() => purchaseAvailableUpgrades()}> Purchase Available Upgrades</button>
           </div>
-                  <div>
-            <p>
-              Motivation Poster (+{(stats.motivationPoster * 1 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.motivationPoster} --- {calculatePrice('motivationPoster')}
-              <button onClick={() => buyItem('motivationPoster')}>Buy Motivation Poster</button>
-            </p>
-          </div>
-          <div>
-            <p>
-              Self Help Book (+{(stats.selfHelpBook * 10 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.selfHelpBook} --- {calculatePrice('selfHelpBook')}
-              <button onClick={() => buyItem('selfHelpBook')}>Buy Self Help Book</button>
-            </p>
-          </div>
-          <div>
-            <p>
-              Meditation Guide (+{(stats.meditationGuide * 20 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.meditationGuide} --- {calculatePrice('meditationGuide')}
-              <button onClick={() => buyItem('meditationGuide')}>Buy Meditation Guide</button>
-            </p>
-          </div>
-          <div>
-            <p>
-              Yoga Mat (+{(stats.yogaMat * 25 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.yogaMat} --- {calculatePrice('yogaMat')}
-              <button onClick={() => buyItem('yogaMat')}>Buy Yoga Mat</button>
-            </p>
-          </div>
-          <div>
-            <p>
-              Energy Drink (+{(stats.energyDrink * 30 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.energyDrink} --- {calculatePrice('energyDrink')}
-              <button onClick={() => buyItem('energyDrink')}>Buy Energy Drink</button>
-            </p>
-          </div>
-          <div>
-            <p>
-              Influencer Course (+{(stats.influencerCourse * 50 * stats.achievementMultiplier).toFixed(2)}/sec):
-              {stats.influencerCourse} --- {calculatePrice('influencerCourse')}
-              <button onClick={() => buyItem('influencerCourse')}>Buy Influencer Course</button>
-            </p>
-          </div>
-        </div>
-      )}
-      {view === 'Upgrades' && (
-  <div>
-  <div>
-   <button onClick={() => purchaseAvailableUpgrades()}> Purchase Available Upgrades</button>
-  </div>
-    {stats?.upgrades
-      .filter(upgrade => upgrade.type === 'motivation')
-      .filter(upgrade => !stats.settings.find(setting => setting.name === "Hide Purchased Upgrades").status || !upgrade.purchased)
-      .sort((a, b) => a.price - b.price)
-      .map((upgrade, index) => (
-        <div key={index} className="upgrade-container">
-          <p className="upgrade-info">
-            {upgrade.name}: {upgrade.price}
-            <button disabled={upgrade.purchased} onClick={() => buyUpgrade(upgrade)}>
-              {upgrade.purchased ? "Purchased" : "Purchase"}
-            </button>
-            <span className="tooltip-text">{upgrade.description}</span>
-          </p>
-        </div>
-      ))}
+          {stats?.upgrades
+            .filter(upgrade => upgrade.type === 'motivation')
+            .filter(upgrade => !stats.settings.find(setting => setting.name === "Hide Purchased Upgrades").status || !upgrade.purchased)
+            .sort((a, b) => a.price - b.price)
+            .map((upgrade, index) => (
+              <div key={index} className="upgrade-container">
+                <p className="upgrade-info">
+                  <Icon icon={getIcon(upgrade.area)} width="30" />
+                  {upgrade.name}: {upgrade.price}
+                  <button disabled={upgrade.purchased} onClick={() => buyUpgrade(upgrade)}>
+                    {upgrade.purchased ? "Purchased" : "Purchase"}
+                  </button>
+                  <span className="tooltip-text">{upgrade.description}</span>
+                </p>
+              </div>
+            ))}
   </div>
 )}
 
