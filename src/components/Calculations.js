@@ -15,7 +15,7 @@ export const KnowledgePerSecond = (stats) => {
   return knowledgePerSecond;
 };
 export const SocialPerSecond = (stats) => {
-  const socialPerSecond = ((5 * stats.talking) * stats.achievementMultiplier);
+  const socialPerSecond = ((5 * stats.talking) * stats.achievementMultiplier - 100 * stats.socialPoints);
   return socialPerSecond;
 };
 export const WritingPerSecond = ( stats) =>{

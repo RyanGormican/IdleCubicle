@@ -8,6 +8,8 @@ export const upgrades = [
 
 //Foam Finger
   { name: "Auto Finger", price: 5, type: "prestige",area:"foamfinger", purchased: false, description: "Need a hand? Automatically purchase fingers with enough motivation!", effect: 0 },
+  { name: "Foamier Finger", price: 3, type: "prestige",area:"foamfinger", purchased: false, description: "Super plush yet super powerful! (+6/click foam finger)", effect: 6 },
+  { name: "Foamiest Finger", price: 15, type: "prestige",area:"foamfinger", purchased: false, description: "Stretch your fingers to new limits! (+30/click foam finger)", effect: 30 },
   { name: "Custom Design", price: 100, type: "motivation", area:"foamfinger", purchased: false, description: "Upgrade your foam finger with a custom design (+2/click foam finger).", effect: 2 },
   { name: "Signature Autograph", price: 200, type: "motivation", area:"foamfinger",purchased: false, description: "Get your foam finger signed by a celebrity! (+2/click foam finger)", effect: 2 },
   { name: "Colorful Patterns", price: 300, type: "motivation", area:"foamfinger",purchased: false, description: "Add colorful patterns to your foam finger (+2/click foam finger).", effect: 2 },
@@ -20,6 +22,7 @@ export const upgrades = [
   { name: "Limited Edition", price: 1000, type: "motivation", area:"foamfinger",purchased: false, description: "Get your hands on a limited edition foam finger (+2/click foam finger).", effect: 2 },
  // Motivation Poster
  { name: "Auto Motivation Poster", price: 5, type: "prestige",area:"motivationPoster", purchased: false, description: "Need a hand? Automatically purchase posters with enough motivation!", effect: 0 },
+  { name: "Thick Sheets", price: 3, type: "prestige",area:"motivationPoster", purchased: false, description: "Enhance your posters with some sturdy material! (+15/sec motivation)", effect: 15 },
 { name: "Inspirational Quotes", price: 100, type: "motivation", area: "motivationPoster", purchased: false, description: "Decorate your wall with inspiring quotes (+2/sec motivation).", effect: 2 },
   { name: "Artistic Illustrations", price: 150, type: "motivation", area: "motivationPoster", purchased: false, description: "Hang artistic illustrations for motivation (+2/sec motivation).", effect: 2 },
   { name: "Nature Scenes", price: 200, type: "motivation", area: "motivationPoster", purchased: false, description: "Adorn your room with serene nature scenes (+2/sec motivation).", effect: 2 },

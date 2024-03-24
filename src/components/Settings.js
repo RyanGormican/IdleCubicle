@@ -50,7 +50,7 @@ return (
             <div key={index}>
               <span>{setting.name}</span>
               <button onClick={() => toggleSetting(setting.name)}>
-            {stats.settings[0].status ? 'Enabled' : 'Disabled'}
+            {stats.settings[index]?.status ? 'Enabled' : 'Disabled'}
               </button>
             </div>
           ))}
@@ -61,4 +61,12 @@ return (
 export default Settings;
 export const settings = [
   { name: "Hide Purchased Upgrades",  status: false},
+  { name: "Auto Finger",  status: false},
+  { name: "Auto Motivation Poster",  status: false},
+  { name: "Auto Self Help Book",  status: false},
+  { name: "Auto Meditation Guide",  status: false},
+  { name: "Auto Yoga Mat",  status: false},
+  { name: "Auto Energy Drink",  status: false},
+  { name: "Auto Influencer Course",  status: false},
+
 ];

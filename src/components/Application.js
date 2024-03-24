@@ -35,6 +35,11 @@ const Application = ({ stats, setStats, purchaseQuantity }) => {
       <button onClick={() => increaseQuantity('motivationPoints')}>Increase Motivation Points</button>
       <button onClick={() => decreaseQuantity('motivationPoints')}>Decrease Motivation Points</button>
       </div>
+        <div>
+      Social Points - {stats.socialPoints}
+      <button onClick={() => increaseQuantity('socialPoints')}>Increase Social Points</button>
+      <button onClick={() => decreaseQuantity('socialPoints')}>Decrease Social Points</button>
+      </div>
       <div>
       Writing Points - {stats.writingPoints}
       <button onClick={() => increaseQuantity('writingPoints')}>Increase Writing Points</button>

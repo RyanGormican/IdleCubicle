@@ -10,7 +10,9 @@ import Application from './components/Application';
 import {settings} from './components/Settings';
 import Settings from './components/Settings';
 import Prestige from './components/Prestige';
+import Networking from './components/Networking';
 import { upgrades } from './components/Upgrades'; 
+import {buyItem,calculatePrice} from './components/Utilities';
 import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
 
 function App() {
@@ -38,9 +40,12 @@ function App() {
     influencerCourse:0,
     foamfinger:0,
     goldstars:0,
+    socialPoints:0,
+    connections:[],
     ...upgrades,
     ...settings,
   };
+   const [currentUpgradeIndex, setCurrentUpgradeIndex] = useState(0);
    const handlePurchaseQuantityChange = (quantity) => {
     setPurchaseQuantity(quantity);
   };
@@ -58,6 +63,30 @@ function App() {
   const handleViewChange = (view) => {
     setView(view);
   };
+  useEffect(() => {
+  const interval = setInterval(() => {
+    const autoUpgrades = [
+      'Auto Finger',
+      'Auto Motivation Poster',
+      'Auto Self Help Book',
+      'Auto Meditation Guide',
+      'Auto Yoga Mat',
+      'Auto Energy Drink',
+      'Auto Influencer Course'
+    ];
+    const upgradeName = autoUpgrades[currentUpgradeIndex];
+    const upgrade = stats.upgrades.find(upgrade => upgrade.name === upgradeName && upgrade.purchased);
+    const buyUpgrade = () => {
+      if (upgrade && stats.motivation >= calculatePrice(upgrade.area,purchaseQuantity,stats)) {
+        buyItem(upgrade.area ,stats,purchaseQuantity,setStats);
+      }
+    };
+    buyUpgrade();
+    setCurrentUpgradeIndex((currentUpgradeIndex + 1) % autoUpgrades.length); 
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [stats]);
     useEffect(() => {
  
 
@@ -99,7 +128,7 @@ function App() {
   return (
     <div className="App">
         <div className="Background">
-          <div className="title">IdleCubicle</div>
+          <div className="title"><Icon icon="material-symbols:desk" /> IdleCubicle <Icon icon="material-symbols:desk" /></div>
           <div className="buttons">
       <button
         className={`btn btn-primary btn-large mr-2 ${view === 'Resources' ? 'selected' : ''}`}
@@ -136,6 +165,12 @@ function App() {
         onClick={() => handleViewChange('Achievements')}
       >
         Achievements
+      </button>
+       <button
+        className={`btn btn-primary mr-2 ${view === 'Networking' ? 'selected' : ''}`}
+        onClick={() => handleViewChange('Networking')}
+      >
+        Networking
       </button>
       <button
         className={`btn btn-primary ${view === 'Settings' ? 'selected' : ''}`}
@@ -180,6 +215,9 @@ function App() {
           )}
            {view === 'Application' && (
             <Application stats={stats} setStats={setStats} purchaseQuantity={purchaseQuantity}/>
+          )}
+          {view === 'Networking' && (
+            <Networking stats={stats} setStats={setStats} />
           )}
           {view === 'Settings' && (
             <Settings stats={stats} setStats={setStats} />
