@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Tooltip} from 'react-tooltip';
 import { MotivationPerSecond } from './Calculations';
 import { Icon } from '@iconify/react';
+import {getIcon} from './Utilities';
 const Energize = ({ stats, setStats, purchaseQuantity }) => {
   const [view, setView] = useState('Items');
+      const [currentUpgradeIndex, setCurrentUpgradeIndex] = useState(0);
   const buyUpgrade = (upgrade) => {
     const currentPrice = upgrade.price;
     if (stats.motivation >= currentPrice && !upgrade.purchased && purchaseQuantity) {
@@ -21,26 +23,6 @@ const Energize = ({ stats, setStats, purchaseQuantity }) => {
       alert("Not enough motivation!");
     }
   };
-  const getIcon = (area) => {
-  switch (area) {
-    case 'foamfinger':
-      return 'tabler:hand-finger';
-    case 'motivationPoster':
-      return 'akar-icons:paper';
-    case 'selfHelpBook':
-      return 'material-symbols:book';
-    case 'meditationGuide':
-      return 'mdi:tape';
-    case 'yogaMat':
-      return 'tabler:yoga';
-    case 'energyDrink':
-      return 'game-icons:soda-can';
-    case 'influencerCourse':
-      return 'material-symbols:person';
-    default:
-      return null;
-  }
-};
 
 const purchaseAvailableUpgrades = () => {
   const availableUpgrades = stats.upgrades.filter(upgrade => !upgrade.purchased && upgrade.type === 'motivation');
@@ -76,6 +58,31 @@ const calculateHypePrestige = () => {
     });
   return hypeUp;
 };
+useEffect(() => {
+  const interval = setInterval(() => {
+    const autoUpgrades = [
+      'Auto Finger',
+      'Auto Motivation Poster',
+      'Auto Self Help Book',
+      'Auto Meditation Guide',
+      'Auto Yoga Mat',
+      'Auto Energy Drink',
+      'Auto Influencer Course'
+    ];
+    const upgradeName = autoUpgrades[currentUpgradeIndex];
+    const upgrade = stats.upgrades.find(upgrade => upgrade.name === upgradeName && upgrade.purchased);
+    const buyUpgrade = () => {
+      if (upgrade && stats.motivation >= calculatePrice(upgrade.area)) {
+        buyItem(upgrade.area);
+      }
+    };
+    buyUpgrade();
+    setCurrentUpgradeIndex((currentUpgradeIndex + 1) % autoUpgrades.length); 
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [stats]);
+
 
   const calculateMax = (itemType) => {
   let basePrice, increaseRate;
@@ -145,7 +152,7 @@ const calculateHypePrestige = () => {
         [itemType]: prevStats[itemType] + calculateMax(itemType),
       }));
     } else {
-      alert("Not enough motivation to buy!");
+
     }
   };
   const totalFoamFingerEffect = stats.upgrades
@@ -227,9 +234,9 @@ const calculateHypePrestige = () => {
 
   return (
     <div className="resources">
-      <p>Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)</p>
+      <p> <Icon icon={getIcon('motivation')} width="30" /> Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)</p>
      <div>
-     <button onClick={hypeUp}>Hype up</button>
+    <Icon icon={getIcon('click')} width="30" />   <button onClick={hypeUp}>Hype up</button>  <Icon icon={getIcon('click')} width="30" />
      </div>
       <button onClick={() => setView('Items')}>Items</button> <button onClick={() => setView('Upgrades')}>Upgrades {purchasedUpgradesCount} / {totalUpgradesCount}</button>
       {view === 'Items' && (

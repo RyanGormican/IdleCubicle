@@ -7,6 +7,7 @@ export const upgrades = [
   { name: "Gold Clicker", price: 5, type: "prestige",area:"click", purchased: false, description: "Flaunt your riches with a golden hand (2x click).", effect: 2 },
 
 //Foam Finger
+  { name: "Auto Finger", price: 5, type: "prestige",area:"foamfinger", purchased: false, description: "Need a hand? Automatically purchase fingers with enough motivation!", effect: 0 },
   { name: "Custom Design", price: 100, type: "motivation", area:"foamfinger", purchased: false, description: "Upgrade your foam finger with a custom design (+2/click foam finger).", effect: 2 },
   { name: "Signature Autograph", price: 200, type: "motivation", area:"foamfinger",purchased: false, description: "Get your foam finger signed by a celebrity! (+2/click foam finger)", effect: 2 },
   { name: "Colorful Patterns", price: 300, type: "motivation", area:"foamfinger",purchased: false, description: "Add colorful patterns to your foam finger (+2/click foam finger).", effect: 2 },
@@ -18,6 +19,7 @@ export const upgrades = [
   { name: "Superhero Theme", price: 900, type: "motivation", area:"foamfinger",purchased: false, description: "Turn your foam finger into a superhero's weapon! (+2/click foam finger)", effect: 2 },
   { name: "Limited Edition", price: 1000, type: "motivation", area:"foamfinger",purchased: false, description: "Get your hands on a limited edition foam finger (+2/click foam finger).", effect: 2 },
  // Motivation Poster
+ { name: "Auto Motivation Poster", price: 5, type: "prestige",area:"motivationPoster", purchased: false, description: "Need a hand? Automatically purchase posters with enough motivation!", effect: 0 },
 { name: "Inspirational Quotes", price: 100, type: "motivation", area: "motivationPoster", purchased: false, description: "Decorate your wall with inspiring quotes (+2/sec motivation).", effect: 2 },
   { name: "Artistic Illustrations", price: 150, type: "motivation", area: "motivationPoster", purchased: false, description: "Hang artistic illustrations for motivation (+2/sec motivation).", effect: 2 },
   { name: "Nature Scenes", price: 200, type: "motivation", area: "motivationPoster", purchased: false, description: "Adorn your room with serene nature scenes (+2/sec motivation).", effect: 2 },
@@ -34,7 +36,8 @@ export const upgrades = [
   { name: "Wisdom of Elders", price: 750, type: "motivation", area: "motivationPoster", purchased: false, description: "Display the wisdom of elders for guidance (+2/sec motivation).", effect: 2 },
   { name: "Daily Affirmations", price: 800, type: "motivation", area: "motivationPoster", purchased: false, description: "Start your day with positive daily affirmations (+2/sec motivation).", effect: 2 },
   // Self Help
-   { name: "The Power of Now", price: 100, type: "motivation", area: "selfHelpBook", purchased: false, description: "Discover the transformative power of living in the present moment. (+2/sec motivation).", effect: 2 },
+  { name: "Auto Self Help Book", price: 5, type: "prestige",area:"selfHelpBook", purchased: false, description: "Need a hand? Automatically purchase books with enough motivation!", effect: 0 },
+  { name: "The Power of Now", price: 100, type: "motivation", area: "selfHelpBook", purchased: false, description: "Discover the transformative power of living in the present moment. (+2/sec motivation).", effect: 2 },
   { name: "Atomic Habits", price: 150, type: "motivation", area: "selfHelpBook", purchased: false, description: "Learn how to build small habits that lead to remarkable results. (+2/sec motivation).", effect: 2 },
   { name: "Mindset: The New Psychology of Success", price: 200, type: "motivation", area: "selfHelpBook", purchased: false, description: "Uncover the secrets to developing a growth mindset. (+2/sec motivation).", effect: 2 },
   { name: "The 7 Habits of Highly Effective People", price: 250, type: "motivation", area: "selfHelpBook", purchased: false, description: "Master the seven habits that can transform your personal and professional life. (+2/sec motivation).", effect: 2 },
@@ -50,6 +53,7 @@ export const upgrades = [
   { name: "You Are a Warrior", price: 750, type: "motivation", area: "selfHelpBook", purchased: false, description: "Embrace your inner strength and create a life you love. (+2/sec motivation).", effect: 2 },
   { name: "Entering the Zone", price: 800, type: "motivation", area: "selfHelpBook", purchased: false, description: "Embrace the ultimate approach to living a good life. (+2/sec motivation).", effect: 2 },
   // Meditation Guide
+  { name: "Auto Meditation Guide", price: 5, type: "prestige",area:"meditationGuide", purchased: false, description: "Need a hand? Automatically purchase guides with enough motivation!", effect: 0 },
   { name: "Mindfulness Meditation", price: 100, type: "motivation", area: "meditationGuide", purchased: false, description: "Learn the practice of mindfulness to cultivate inner peace and presence. (+2/sec motivation).", effect: 2 },
   { name: "Transcendental Meditation", price: 150, type: "motivation", area: "meditationGuide", purchased: false, description: "Experience deep relaxation and stress reduction with transcendental meditation. (+2/sec motivation).", effect: 2 },
   { name: "Loving-Kindness Meditation", price: 200, type: "motivation", area: "meditationGuide", purchased: false, description: "Cultivate compassion and love for oneself and others through loving-kindness meditation. (+2/sec motivation).", effect: 2 },
@@ -66,6 +70,7 @@ export const upgrades = [
   { name: "Mindful Eating Meditation", price: 750, type: "motivation", area: "meditationGuide", purchased: false, description: "Cultivate awareness and appreciation for food through mindful eating practices. (+2/sec motivation).", effect: 2 },
   { name: "Metta Meditation", price: 800, type: "motivation", area: "meditationGuide", purchased: false, description: "Develop loving-kindness and compassion towards oneself and others with metta meditation. (+2/sec motivation).", effect: 2 },
   // Yoga Mat
+    { name: "Auto Yoga Mat", price: 5, type: "prestige",area:"yogaMat", purchased: false, description: "Need a hand? Automatically purchase yoga mats with enough motivation!", effect: 0 },
    { name: "Eco-Friendly Yoga Mat", price: 100, type: "motivation", area: "yogaMat", purchased: false, description: "Practice with a sustainable, non-toxic yoga mat made from eco-friendly materials. (+2/sec motivation).", effect: 2 },
   { name: "Extra Thick Yoga Mat", price: 150, type: "motivation", area: "yogaMat", purchased: false, description: "Enjoy added comfort and support during your yoga sessions with an extra thick mat. (+2/sec motivation).", effect: 2 },
   { name: "Travel Yoga Mat", price: 200, type: "motivation", area: "yogaMat", purchased: false, description: "Take your yoga practice on the go with a lightweight and portable travel yoga mat. (+2/sec motivation).", effect: 2 },
@@ -82,6 +87,7 @@ export const upgrades = [
   { name: "Yoga Mat Spray", price: 750, type: "motivation", area: "yogaMat", purchased: false, description: "Refresh and disinfect your yoga mat with a natural and antibacterial yoga mat spray. (+2/sec motivation).", effect: 2 },
   { name: "Personalized Yoga Mat", price: 800, type: "motivation", area: "yogaMat", purchased: false, description: "Make your yoga practice truly unique with a personalized yoga mat featuring your name or favorite mantra. (+2/sec motivation).", effect: 2 },
   // Energy Drink
+  { name: "Auto Energy Drink", price: 5, type: "prestige",area:"energyDrink", purchased: false, description: "Need a hand? Automatically purchase energy drinks with enough motivation!", effect: 0 },
   { name: "Classic Energy Drink", price: 100, type: "motivation", area: "energyDrink", purchased: false, description: "Boost your energy levels with a classic energy drink formula. (+2/sec motivation).", effect: 2 },
   { name: "Sugar-Free Energy Drink", price: 150, type: "motivation", area: "energyDrink", purchased: false, description: "Get a clean energy boost without the added sugar with a sugar-free energy drink. (+2/sec motivation).", effect: 2 },
   { name: "Performance Energy Drink", price: 200, type: "motivation", area: "energyDrink", purchased: false, description: "Maximize your workout performance and focus with a specially formulated performance energy drink. (+2/sec motivation).", effect: 2 },
@@ -98,6 +104,7 @@ export const upgrades = [
   { name: "Antioxidant Energy Drink", price: 750, type: "motivation", area: "energyDrink", purchased: false, description: "Combat oxidative stress and boost your energy with an antioxidant-rich energy drink. (+2/sec motivation).", effect: 2 },
   { name: "Detox Energy Drink", price: 800, type: "motivation", area: "energyDrink", purchased: false, description: "Cleanse and revitalize your body with a detoxifying energy drink infused with cleansing ingredients. (+2/sec motivation).", effect: 2 },
   // Influencer Course
+  { name: "Auto Influencer Course", price: 5, type: "prestige",area:"influencerCourse", purchased: false, description: "Need a hand? Automatically purchase influencer courses with enough motivation!", effect: 0 },
   { name: "Social Media Basics", price: 100, type: "motivation", area: "influencerCourse", purchased: false, description: "Learn the fundamentals of social media marketing to kickstart your influencer journey.", effect: 2 },
   { name: "Content Creation Strategies", price: 150, type: "motivation", area: "influencerCourse", purchased: false, description: "Master the art of creating engaging content that resonates with your audience.", effect: 2 },
   { name: "Audience Engagement Techniques", price: 200, type: "motivation", area: "influencerCourse", purchased: false, description: "Discover strategies to build a loyal and engaged audience across various social media platforms.", effect: 2 },

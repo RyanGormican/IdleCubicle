@@ -1,6 +1,7 @@
 import React from 'react';
 import { MotivationPerSecond, InspirationPerSecond, CreativityPerSecond, KnowledgePerSecond, SocialPerSecond, WritingPerSecond, MoneyPerSecond } from './Calculations';
-
+import {getIcon} from './Utilities';
+import { Icon } from '@iconify/react';
 const Resources = ({ stats, setStats }) => {
   const statsToRender = ['motivation', 'inspiration', 'creativity', 'knowledge', 'social', 'writing', 'money'];
 
@@ -8,9 +9,9 @@ const Resources = ({ stats, setStats }) => {
     <div className="resources">
       <div>
         {statsToRender.map(statName => (
-          <p key={statName}>
+          <p key={statName}>  <Icon icon={getIcon(statName)} width="30" /> 
             {statName.charAt(0).toUpperCase() + statName.slice(1)}: {typeof stats[statName] === 'number' ? stats[statName].toFixed(2) : stats[statName]} 
-            {statName === 'motivation' && ` (${MotivationPerSecond(stats)} /sec)`}
+            {statName === 'motivation' &&  ` (${MotivationPerSecond(stats)} /sec)`}
             {statName === 'inspiration' && ` (${InspirationPerSecond(stats)} /sec)`}
             {statName === 'creativity' && ` (${CreativityPerSecond(stats)} /sec)`}
             {statName === 'knowledge' && ` (${KnowledgePerSecond(stats)} /sec)`}

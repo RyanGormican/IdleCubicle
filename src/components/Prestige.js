@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-
+import {getIcon} from './Utilities';
 const Prestige = ({ stats, setStats }) => {
   const availableStars = Math.floor(stats.money / 10000);
   const prestige = () => {
@@ -64,28 +64,7 @@ const purchaseAvailableUpgrades = () => {
       alert("Not enough stars!");
     }
   };
- const getIcon = (area) => {
-  switch (area) {
-    case 'click':
-    return 'tabler:click';
-    case 'foamfinger':
-      return 'tabler:hand-finger';
-    case 'motivationPoster':
-      return 'akar-icons:paper';
-    case 'selfHelpBook':
-      return 'material-symbols:book';
-    case 'meditationGuide':
-      return 'mdi:tape';
-    case 'yogaMat':
-      return 'tabler:yoga';
-    case 'energyDrink':
-      return 'game-icons:soda-can';
-    case 'influencerCourse':
-      return 'material-symbols:person';
-    default:
-      return null;
-  }
-};
+
   return (
     <div className="resources">
     Money - {stats.money}
