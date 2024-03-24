@@ -7,6 +7,7 @@ export const upgrades = [
   { name: "Gold Clicker", price: 5, type: "prestige",area:"click", purchased: false, description: "Flaunt your riches with a golden hand (2x click).", effect: 2 },
 
 //Foam Finger
+  { name: "Quick Applause", price: 1, type: "prestige",area:"foamfinger", purchased: false, description: "Start your resets with a helping hand! (+5 foam fingers)", effect: 0 },
   { name: "Auto Finger", price: 5, type: "prestige",area:"foamfinger", purchased: false, description: "Need a hand? Automatically purchase fingers with enough motivation!", effect: 0 },
   { name: "Foamier Finger", price: 3, type: "prestige",area:"foamfinger", purchased: false, description: "Super plush yet super powerful! (+6/click foam finger)", effect: 6 },
   { name: "Foamiest Finger", price: 15, type: "prestige",area:"foamfinger", purchased: false, description: "Stretch your fingers to new limits! (+30/click foam finger)", effect: 30 },

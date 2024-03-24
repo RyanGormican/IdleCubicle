@@ -13,13 +13,19 @@ const Prestige = ({ stats, setStats }) => {
       achievementMultiplier: 1,
       settings: stats.settings,
     };
+    
 
     for (const key in stats) {
       if (!['goldstars', 'upgrades', 'achievementMultiplier','settings'].includes(key)) {
         resetStats[key] = 0;
       }
     }
-
+      const quickApplauseUpgrade = stats.upgrades.find(upgrade => upgrade.name === "Quick Applause" && upgrade.purchased);
+  if (quickApplauseUpgrade) {
+    resetStats.foamfinger = 5;
+  } else {
+    resetStats.foamfinger = 0; 
+  }
     setStats(resetStats);
   };
 
