@@ -2,7 +2,7 @@ export const upgrades = [
 //Click
 { name: "Swift Clicks", price: 1, type: "prestige", area:"click", purchased: false, description: "Empower your clicks with efficient speed(2x click).", effect: 2 },
   { name: "Sharp Fingernails", price: 2, type: "prestige", area:"click",purchased: false, description: "Dig in deep with uncut fingernails (2x click )", effect: 2 },
-  { name: "Metalic Hand", price: 3, type: "prestige", area:"click",purchased: false, description: "Technology at your fingertips (2x click).", effect: 2 },
+  { name: "Metallic Hand", price: 3, type: "prestige", area:"click",purchased: false, description: "Technology at your fingertips (2x click).", effect: 2 },
   { name: "Flame Glove", price: 4, type: "prestige", area:"click",purchased: false, description: "Achieve fiery displays with your clicks (2x click).", effect: 2 },
   { name: "Gold Clicker", price: 5, type: "prestige",area:"click", purchased: false, description: "Flaunt your riches with a golden hand (2x click).", effect: 2 },
 
