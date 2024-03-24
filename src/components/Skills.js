@@ -10,13 +10,19 @@ const Skills = ({ stats, setStats, purchaseQuantity }) => {
   };
 
   const decreaseQuantity = (item) => {
-    if (stats[item] > 0) {
+    if (stats[item] > 0 && stats[item] - purchaseQuantity >= 0 && purchaseQuantity!== 'MAX') {
       setStats(prevStats => ({
         ...prevStats,
-        [item]: prevStats[item] - 1
+        [item]: prevStats[item] - purchaseQuantity
+      }));
+    }else {
+     setStats(prevStats => ({
+        ...prevStats,
+        [item]: 0
       }));
     }
   };
+
 
   return (
     <div className="resources">

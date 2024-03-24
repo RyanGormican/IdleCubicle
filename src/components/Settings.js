@@ -37,6 +37,7 @@ const Settings = ({ stats, setStats }) => {
       knowledge: 0,
       money: 0,
       social: 0,
+      writing:0,
     }));
   };
 return (
