@@ -12,6 +12,7 @@ import Settings from './components/Settings';
 import Prestige from './components/Prestige';
 import Networking from './components/Networking';
 import { upgrades } from './components/Upgrades'; 
+import { achievements } from './components/AchievementList'; 
 import {buyItem,calculatePrice} from './components/Utilities';
 import { MotivationPerSecond, InspirationPerSecond,CreativityPerSecond,KnowledgePerSecond, SocialPerSecond,WritingPerSecond ,MoneyPerSecond } from './components/Calculations';
 
@@ -44,6 +45,7 @@ function App() {
     connections:[],
     ...upgrades,
     ...settings,
+    ...achievements,
   };
    const [currentUpgradeIndex, setCurrentUpgradeIndex] = useState(0);
    const handlePurchaseQuantityChange = (quantity) => {

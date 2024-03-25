@@ -3,6 +3,7 @@ import {Tooltip} from 'react-tooltip';
 import { MotivationPerSecond } from './Calculations';
 import { Icon } from '@iconify/react';
 import {getIcon, calculatePrice, buyItem, calculateMax} from './Utilities';
+import {calculateMotivationBoost} from './Calculations'
 const Energize = ({ stats, setStats, purchaseQuantity }) => {
   const [view, setView] = useState('Items');
      
@@ -59,7 +60,17 @@ const calculateHypePrestige = () => {
   return hypeUp;
 };
 
-
+const toggleAutoFunction = (settingName) => {
+    setStats(prevStats => ({
+      ...prevStats,
+      settings: prevStats.settings.map(setting => {
+        if (setting.name === settingName) {
+          return { ...setting, status: !setting.status };
+        }
+        return setting;
+      })
+    }));
+  };
 
 
  
@@ -82,7 +93,7 @@ const calculateHypePrestige = () => {
 
   return (
     <div className="resources">
-      <p> <Icon icon={getIcon('motivation')} width="30" /> Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)</p>
+      <p><Icon icon={getIcon('motivation')} width="30" />Motivation: {stats.motivation.toFixed(2)} ({MotivationPerSecond(stats).toFixed(2)} /sec)</p>
      <div>
     <Icon icon={getIcon('click')} width="30" />   <button onClick={hypeUp}>Hype up</button>  <Icon icon={getIcon('click')} width="30" />
      </div>
@@ -91,49 +102,64 @@ const calculateHypePrestige = () => {
        <div>
   <div>
     <p>
-             <Icon icon={getIcon('foamfinger')} width="30" />   Foam Finger (+{(stats.foamfinger * (1 + totalFoamFingerEffect) * calculateHypePrestige() *  stats.achievementMultiplier).toFixed(2)} /click):
+             
+               <button onClick={() => toggleAutoFunction('Auto Finger')}>{stats.settings[1]?.status  ? "ON" : "OFF"}</button>
+             Foam Finger <Icon icon={getIcon('foamfinger')} width="30" />  (+{(stats.foamfinger * (1 + totalFoamFingerEffect) * calculateHypePrestige() *  stats.achievementMultiplier).toFixed(2)} /click):
       {stats.foamfinger} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('foamfinger',purchaseQuantity,stats)} (${calculateMax('foamfinger',stats)})` : calculatePrice('foamfinger',purchaseQuantity,stats)}
       <button onClick={() => buyItem('foamfinger',stats,purchaseQuantity,setStats)}>Buy Foam Finger</button>
     </p>
   </div>
   <div>
     <p>
-            <Icon icon={getIcon('motivationPoster')} width="30" />   Motivation Poster (+{(stats.motivationPoster * 1 * stats.achievementMultiplier).toFixed(2)}/sec):
+          
+             <button onClick={() => toggleAutoFunction('Auto Motivation Poster')}>{stats.settings[2]?.status  ? "ON" : "OFF"}</button>
+            Motivation Poster   <Icon icon={getIcon('motivationPoster')} width="30" />   (+{(stats.motivationPoster * (1+ calculateMotivationBoost(stats,'motivationPoster')) * stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.motivationPoster} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('motivationPoster',purchaseQuantity,stats)} (${calculateMax('motivationPoster',stats)})` : calculatePrice('motivationPoster',purchaseQuantity,stats)}
       <button onClick={() => buyItem('motivationPoster',stats,purchaseQuantity,setStats)}>Buy Motivation Poster</button>
     </p>
   </div>
   <div>
     <p>
-            <Icon icon={getIcon('selfHelpBook')} width="30" />    Self Help Book (+{(stats.selfHelpBook * 10 * stats.achievementMultiplier).toFixed(2)}/sec):
+            
+            <button onClick={() => toggleAutoFunction('Auto Self Help Book')}>{stats.settings[3]?.status  ? "ON" : "OFF"} </button>
+            Self Help Book <Icon icon={getIcon('selfHelpBook')} width="30" />  (+{(stats.selfHelpBook * (10 + calculateMotivationBoost(stats,'selfHelpBook')) * stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.selfHelpBook} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('selfHelpBook',purchaseQuantity,stats)} (${calculateMax('selfHelpBook',stats)})` : calculatePrice('selfHelpBook',purchaseQuantity,stats)}
       <button onClick={() => buyItem('selfHelpBook',stats,purchaseQuantity,setStats)}>Buy Self Help Book</button>
     </p>
   </div>
   <div>
     <p>
-        <Icon icon={getIcon('meditationGuide')} width="30" />    Meditation Guide (+{(stats.meditationGuide * 20 * stats.achievementMultiplier).toFixed(2)}/sec):
+       
+          <button onClick={() => toggleAutoFunction('Auto Meditation Guide')}>{stats.settings[4]?.status  ? "ON" : "OFF"} </button>
+        Meditation Guide  <Icon icon={getIcon('meditationGuide')} width="30" />  (+{(stats.meditationGuide * (20 + calculateMotivationBoost(stats,'meditationGuide')) * stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.meditationGuide} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('meditationGuide',purchaseQuantity,stats)} (${calculateMax('meditationGuide',stats)})` : calculatePrice('meditationGuide',purchaseQuantity,stats)}
       <button onClick={() => buyItem('meditationGuide',stats,purchaseQuantity,setStats)}>Buy Meditation Guide</button>
     </p>
   </div>
   <div>
     <p>
-       <Icon icon={getIcon('yogaMat')} width="30" />  Yoga Mat (+{(stats.yogaMat * 25 * stats.achievementMultiplier).toFixed(2)}/sec):
+    
+              <button onClick={() => toggleAutoFunction('Auto Yoga Mat')}>{stats.settings[5]?.status  ? "ON" : "OFF"} </button>
+       Yoga Mat    <Icon icon={getIcon('yogaMat')} width="30" />  (+{(stats.yogaMat *  (25 + calculateMotivationBoost(stats,'yogaMat')) * stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.yogaMat} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('yogaMat',purchaseQuantity,stats)}(${calculateMax('yogaMat',stats)})` : calculatePrice('yogaMat',purchaseQuantity,stats)}
       <button onClick={() => buyItem('yogaMat',stats,purchaseQuantity,setStats)}>Buy Yoga Mat</button>
     </p>
   </div>
   <div>
     <p>
-             <Icon icon={getIcon('energyDrink')} width="30" />   Energy Drink (+{(stats.energyDrink * 30 * stats.achievementMultiplier).toFixed(2)}/sec):
+          
+                   <button onClick={() => toggleAutoFunction('Auto Energy Drink')}>{stats.settings[6]?.status  ? "ON" : "OFF"} </button>    
+             Energy Drink    <Icon icon={getIcon('energyDrink')} width="30" />  (+{(stats.energyDrink *  (30 + calculateMotivationBoost(stats,'energyDrink'))* stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.energyDrink} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('energyDrink',purchaseQuantity,stats)}(${calculateMax('energyDrink',stats)})` : calculatePrice('energyDrink',purchaseQuantity,stats)}
       <button onClick={() => buyItem('energyDrink',stats,purchaseQuantity,setStats)}>Buy Energy Drink</button>
     </p>
   </div>
   <div>
     <p>
-            <Icon icon={getIcon('influencerCourse')} width="30" />   Influencer Course (+{(stats.influencerCourse * 50 * stats.achievementMultiplier).toFixed(2)}/sec):
+          
+            
+             <button onClick={() => toggleAutoFunction('Auto Energy Drink')}>{stats.settings[7]?.status  ? "ON" : "OFF"} </button>    
+            Influencer Course   <Icon icon={getIcon('influencerCourse')} width="30" />   (+{(stats.influencerCourse *  (50 + calculateMotivationBoost(stats,'influencerCourse')) * stats.achievementMultiplier).toFixed(2)}/sec):
       {stats.influencerCourse} --- {purchaseQuantity === 'MAX' ? `${calculatePrice('influencerCourse',purchaseQuantity,stats)} (${calculateMax('influencerCourse',stats)})` : calculatePrice('influencerCourse',purchaseQuantity,stats)}
       <button onClick={() => buyItem('influencerCourse',stats,purchaseQuantity,setStats)}>Buy Influencer Course</button>
     </p>

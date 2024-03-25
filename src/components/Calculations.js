@@ -1,5 +1,13 @@
 export const MotivationPerSecond = (stats) => {
-  const motivationPerSecond = ((1 * stats.motivationPoster + 10 * stats.selfHelpBook  + 20 * stats.meditationGuide + 25 * stats.yogaMat + 30 * stats.energyDrink + 50 * stats.influencerCourse) * stats.achievementMultiplier - (stats.explore + stats.draw + stats.books + stats.talking) - 10 * stats.pencil - 100 * stats.motivationPoints);
+  const motivationPerSecond = ((
+  (1 + calculateMotivationBoost(stats,'motivationPoster')) * stats.motivationPoster
+  + (10+ calculateMotivationBoost(stats,'selfHelpBook')) * stats.selfHelpBook  
+  + (20+ calculateMotivationBoost(stats,'meditationGuide')) * stats.meditationGuide 
+  + (25+ calculateMotivationBoost(stats,'yogaMat')) * stats.yogaMat 
+  + (30+ calculateMotivationBoost(stats,'energyDrink')) * stats.energyDrink
+  + (50+ calculateMotivationBoost(stats,'influencerCourse')) * stats.influencerCourse) 
+  * stats.achievementMultiplier
+  - (stats.explore + stats.draw + stats.books + stats.talking) - 10 * stats.pencil - 100 * stats.motivationPoints);
   return motivationPerSecond;
 };
 export const InspirationPerSecond = (stats) => {
@@ -26,3 +34,12 @@ export const MoneyPerSecond = (stats) =>{
 const moneyPerSecond = ((10* (stats.motivationPoints * 0.01 + stats.writingPoints * 0.05) * 100.0) *stats.achievementMultiplier)
 return moneyPerSecond;
 }
+export const calculateMotivationBoost = (stats, type) => {
+  let boost = 0;
+  stats.upgrades
+    .filter(upgrade => upgrade.type === 'motivation' && upgrade.area === type && upgrade.purchased)
+    .forEach(upgrade => {
+      boost += upgrade.effect;
+    });
+  return boost;
+};
