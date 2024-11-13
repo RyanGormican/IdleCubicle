@@ -195,8 +195,17 @@ function App() {
             </div>
 
             <div className="purchase-quantity-buttons">
-              {/* Purchase quantity buttons */}
-            </div>
+  {[1, 5, 10, 25, 50, 100, 250, 500, 1000, 'MAX'].map((quantity) => (
+    <button
+      key={quantity}
+      className={purchaseQuantity === quantity ? 'selected' : ''}
+      onClick={() => handlePurchaseQuantityChange(quantity)}
+    >
+      {quantity}x
+    </button>
+  ))}
+</div>
+
 
             <div>
               {view === 'Resources' && <Resources stats={stats} setStats={setStats} />}
