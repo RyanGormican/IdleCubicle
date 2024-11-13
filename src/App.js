@@ -116,8 +116,7 @@ function App() {
       <div className="Background">
         <div className="title"><Icon icon="material-symbols:desk" /> IdleCubicle <Icon icon="material-symbols:desk" /></div>
 
-        {/* Button to toggle "Under Construction" state */}
-        <button onClick={handleToggleUnderConstruction}>Toggle Under Construction</button>
+  
 
         {underConstruction ? (
           // Show only links and "Under Construction" message
