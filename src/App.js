@@ -199,7 +199,7 @@ function App() {
     <button
       key={quantity}
       className={purchaseQuantity === quantity ? 'selected' : ''}
-      onClick={() => handlePurchaseQuantityChange(quantity)}
+      
     >
       {quantity}x
     </button>
